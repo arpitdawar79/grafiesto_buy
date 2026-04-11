@@ -1,0 +1,31 @@
+# dependencies
+node_modules
+.pnpm-store
+
+# build outputs
+.next
+.turbo
+dist
+.medusa
+build
+
+# env
+.env
+.env.local
+.env.*.local
+
+# logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# misc
+.DS_Store
+*.pem
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea
+coverage
+.vercel

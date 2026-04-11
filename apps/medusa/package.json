@@ -1,0 +1,38 @@
+{
+  "name": "@grafiesto/medusa",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Grafiesto Buy — Medusa v2 backend (multi-tenant for 5 brands)",
+  "scripts": {
+    "build": "medusa build",
+    "dev": "medusa develop",
+    "start": "medusa start",
+    "seed": "medusa exec ./src/scripts/seed.ts",
+    "seed:tenants": "medusa exec ./src/scripts/seed-tenants.ts",
+    "db:migrate": "medusa db:migrate",
+    "db:generate": "medusa db:generate",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@medusajs/admin-sdk": "^2.4.0",
+    "@medusajs/cli": "^2.4.0",
+    "@medusajs/framework": "^2.4.0",
+    "@medusajs/medusa": "^2.4.0",
+    "@medusajs/payment-stripe": "^2.4.0",
+    "awilix": "^8.0.1",
+    "pg": "^8.13.0"
+  },
+  "devDependencies": {
+    "@medusajs/test-utils": "^2.4.0",
+    "@types/node": "^20.19.39",
+    "@types/pg": "^8.11.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "packageManager": "pnpm@9.12.3"
+}

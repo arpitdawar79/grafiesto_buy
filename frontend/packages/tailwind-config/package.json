@@ -1,0 +1,16 @@
+{
+  "name": "@grafiesto/tailwind-config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./preset.js",
+  "exports": {
+    ".": "./preset.js",
+    "./globals.css": "./globals.css"
+  },
+  "files": ["preset.js", "globals.css"],
+  "dependencies": {
+    "tailwindcss": "^3.4.14",
+    "tailwindcss-animate": "^1.0.7"
+  }
+}

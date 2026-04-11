@@ -1,0 +1,41 @@
+{
+  "name": "@grafiesto/pwa",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./hooks/*": "./src/hooks/*.ts",
+    "./components/*": "./src/components/*.tsx",
+    "./manifest": "./src/manifest.ts",
+    "./register-sw": "./src/register-sw.ts"
+  },
+  "scripts": {
+    "lint": "eslint src --max-warnings=0",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/haptics": "^6.0.1",
+    "@capacitor/status-bar": "^6.0.1",
+    "@capacitor/app": "^6.0.1",
+    "@capacitor/network": "^6.0.3",
+    "@grafiesto/ui": "workspace:*",
+    "clsx": "^2.1.1"
+  },
+  "peerDependencies": {
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  },
+  "devDependencies": {
+    "@grafiesto/eslint-config": "workspace:*",
+    "@grafiesto/tsconfig": "workspace:*",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.6.3"
+  }
+}
