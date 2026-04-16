@@ -1,111 +1,90 @@
 "use client"
 
-import {
-  BlurIn,
-  FadeIn,
-  GradientText,
-  MagicCard,
-  Parallax,
-  TextReveal,
-} from "@grafiesto/ui"
+import { FadeIn, GradientText, MagicCard } from "@grafiesto/ui"
 import { motion } from "framer-motion"
+import { Sparkles } from "lucide-react"
 
 const steps = [
   {
     number: "01",
     title: "Discover",
-    desc: "Explore our curated collection of handcrafted fragrances, each telling a unique story of Indian heritage.",
-    image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600&q=80",
+    desc: "Explore curated fragrances",
+    image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&q=80",
+    color: "hsl(var(--primary))",
   },
   {
     number: "02",
     title: "Experience",
-    desc: "Each scent unfolds in layers — top notes that captivate, heart notes that embrace, base notes that linger.",
-    image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=600&q=80",
+    desc: "Scents that unfold in layers",
+    image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&q=80",
+    color: "hsl(var(--accent))",
   },
   {
     number: "03",
     title: "Ritual",
-    desc: "Apply to pulse points and let the warmth of your skin transform each fragrance into something uniquely yours.",
-    image: "https://images.unsplash.com/photo-1594035910387-fbd1af8b235e?w=600&q=80",
+    desc: "Transform your identity",
+    image: "https://images.unsplash.com/photo-1594035910387-fbd1af8b235e?w=400&q=80",
+    color: "hsl(var(--brand))",
   },
 ]
 
 export function RitualSection() {
   return (
-    <section className="relative py-28 lg:py-40 overflow-hidden">
-      {/* Decorative line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-primary/15 to-transparent pointer-events-none" />
+    <section className="relative py-16 lg:py-24 overflow-hidden">
+      {/* Subtle top line */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[1px] bg-gradient-to-r from-transparent via-primary/10 to-transparent pointer-events-none" />
 
       <div className="container relative z-10">
-        {/* Header */}
-        <div className="text-center mb-24">
+        {/* Compact header */}
+        <div className="text-center mb-12">
           <FadeIn>
-            <span className="text-[10px] uppercase tracking-[0.3em] text-primary font-semibold">
-              The Experience
-            </span>
+            <div className="inline-flex items-center gap-2 mb-4">
+              <Sparkles className="w-3.5 h-3.5 text-primary" />
+              <span className="text-[10px] uppercase tracking-[0.3em] text-primary font-semibold">
+                The Experience
+              </span>
+            </div>
           </FadeIn>
-          <BlurIn delay={0.15}>
-            <h2 className="font-serif text-4xl lg:text-6xl font-normal tracking-tight leading-[0.95] mt-5 max-w-2xl mx-auto">
+          <FadeIn delay={0.1}>
+            <h2 className="font-serif text-2xl lg:text-3xl font-normal tracking-tight">
               Your Fragrance{" "}
-              <GradientText as="span" className="font-serif italic">
+              <GradientText
+                as="span"
+                className="font-serif italic"
+                gradient="linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%)"
+              >
                 Ritual
               </GradientText>
             </h2>
-          </BlurIn>
-          <FadeIn delay={0.3}>
-            <p className="text-muted-foreground mt-6 text-base max-w-md mx-auto leading-relaxed">
-              Three steps to discovering a scent that becomes part of your identity.
-            </p>
           </FadeIn>
         </div>
 
-        {/* Ritual steps */}
-        <div className="space-y-20 lg:space-y-32 max-w-5xl mx-auto">
+        {/* Compact horizontal cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 max-w-4xl mx-auto">
           {steps.map((step, i) => (
             <FadeIn key={step.number} delay={i * 0.1}>
-              <div className={`grid lg:grid-cols-2 gap-10 lg:gap-16 items-center ${i % 2 === 1 ? "lg:direction-rtl" : ""}`}>
-                {/* Image */}
-                <div className={`${i % 2 === 1 ? "lg:order-2" : ""}`}>
-                  <Parallax offset={40}>
-                    <MagicCard
-                      gradientColor="hsl(var(--primary))"
-                      gradientOpacity={0.1}
-                      className="rounded-3xl overflow-hidden border-foreground/[0.04] p-0"
-                    >
-                      <motion.div
-                        className="aspect-[4/5] overflow-hidden"
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ duration: 0.6 }}
+              <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.3 }}>
+                <MagicCard
+                  gradientColor={step.color}
+                  gradientOpacity={0.08}
+                  className="rounded-2xl overflow-hidden border-foreground/[0.04] p-0"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img src={step.image} alt={step.title} className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <span
+                        className="text-xs font-bold opacity-60 mb-1 block"
+                        style={{ color: step.color }}
                       >
-                        <img
-                          src={step.image}
-                          alt={step.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </motion.div>
-                    </MagicCard>
-                  </Parallax>
-                </div>
-
-                {/* Content */}
-                <div className={`${i % 2 === 1 ? "lg:order-1 lg:text-right" : ""}`}>
-                  <span className="text-6xl lg:text-8xl font-bold text-foreground/[0.04] font-serif block leading-none mb-4">
-                    {step.number}
-                  </span>
-                  <TextReveal
-                    as="h3"
-                    effect="blur-in"
-                    className="font-serif text-3xl lg:text-4xl font-normal tracking-tight"
-                  >
-                    {step.title}
-                  </TextReveal>
-                  <p className="text-muted-foreground mt-4 text-sm leading-relaxed max-w-sm">
-                    {step.desc}
-                  </p>
-                  <div className="mt-6 w-16 h-[1px] bg-gradient-to-r from-primary/30 to-transparent" />
-                </div>
-              </div>
+                        {step.number}
+                      </span>
+                      <h3 className="font-serif text-lg text-white tracking-tight">{step.title}</h3>
+                      <p className="text-white/60 text-xs mt-0.5">{step.desc}</p>
+                    </div>
+                  </div>
+                </MagicCard>
+              </motion.div>
             </FadeIn>
           ))}
         </div>
