@@ -3,6 +3,8 @@ import { themeToCssVars } from "@grafiesto/brand-config"
 import { Toaster } from "@grafiesto/ui"
 import { NetworkBanner, InstallPrompt } from "@grafiesto/pwa"
 import { brand } from "@/lib/brand"
+import { Navbar } from "@/components/navbar"
+import { Footer } from "@/components/footer"
 import { MobileShell } from "@/components/mobile-shell"
 import { ServiceWorker } from "@/components/service-worker"
 import "./globals.css"
@@ -55,7 +57,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body style={cssVars} className="min-h-screen bg-background font-sans text-foreground antialiased">
         <ServiceWorker />
         <NetworkBanner />
+        <Navbar />
         <MobileShell>{children}</MobileShell>
+        <Footer />
         <InstallPrompt appName={brand.name} description={brand.pwa.description} />
         <Toaster />
       </body>

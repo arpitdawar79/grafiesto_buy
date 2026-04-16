@@ -43,3 +43,15 @@ export * from "./components/tooltip"
 
 // Ecommerce composed components
 export * from "./ecommerce"
+
+// Motion primitives
+export * from "./motion"
+
+// Visual effects (Magic UI inspired)
+export * from "./visuals"
+
+// 3D components
+export * from "./three"
+
+// Sample data
+export * from "./data"

@@ -70,3 +70,117 @@
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }
+
+/* ------------------------------------------------------------------ */
+/* Animation keyframes — used by @grafiesto/ui motion + visuals        */
+/* ------------------------------------------------------------------ */
+
+/* Legacy marquee (announcement bar) */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Magic UI Marquee */
+@keyframes marquee-horizontal {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-100% - var(--gap))); }
+}
+@keyframes marquee-vertical {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(calc(-100% - var(--gap))); }
+}
+
+/* Shimmer button sweep */
+@keyframes shimmer-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Aurora gradient */
+@keyframes aurora {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Gradient text */
+@keyframes gradient-x {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Text shimmer */
+@keyframes shimmer-text {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Particle float */
+@keyframes particle-float {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: var(--opacity, 0.3); }
+  90% { opacity: var(--opacity, 0.3); }
+  100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+}
+
+/* Meteor */
+@keyframes meteor {
+  0% { transform: rotate(-45deg) translateX(0); opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: rotate(-45deg) translateX(-500px); opacity: 0; }
+}
+
+/* Ripple expand */
+@keyframes ripple-expand {
+  0% { transform: scale(0.8); opacity: 0.6; }
+  50% { opacity: 0.3; }
+  100% { transform: scale(1.2); opacity: 0; }
+}
+
+/* Orbit */
+@keyframes orbit {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Pulse glow */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Smooth scale in */
+@keyframes scale-in {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Float (gentle vertical bob) */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Border beam (traveling light on border) */
+@keyframes border-beam {
+  0% { offset-distance: 0%; }
+  100% { offset-distance: 100%; }
+}
+
+/* Pulsating ring for CTA */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 var(--pulse-color, hsl(var(--primary) / 0.5)); }
+  75%, 100% { box-shadow: 0 0 0 12px var(--pulse-color, hsl(var(--primary) / 0)); }
+}
+
+/* Hide scrollbars but keep scroll */
+.hide-scrollbars::-webkit-scrollbar { display: none; }
+.hide-scrollbars { -ms-overflow-style: none; scrollbar-width: none; }

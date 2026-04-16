@@ -1,14 +1,41 @@
 import * as React from "react"
 import { cn } from "../utils"
+import { GlowCard } from "../visuals/glow-card"
+import { SpotlightCard } from "../visuals/spotlight-card"
 
-export const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn("rounded-lg border bg-card text-card-foreground shadow-sm", className)}
-      {...props}
-    />
-  )
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  glow?: boolean
+  spotlight?: boolean
+}
+
+export const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, glow, spotlight, ...props }, ref) => {
+    const defaultClasses = cn("rounded-lg border bg-card text-card-foreground shadow-sm", className)
+    
+    if (spotlight) {
+      return (
+        <SpotlightCard className={defaultClasses} {...props}>
+          {props.children}
+        </SpotlightCard>
+      )
+    }
+
+    if (glow) {
+      return (
+        <GlowCard className={defaultClasses} {...props}>
+          {props.children}
+        </GlowCard>
+      )
+    }
+
+    return (
+      <div
+        ref={ref}
+        className={defaultClasses}
+        {...props}
+      />
+    )
+  }
 )
 Card.displayName = "Card"
 
