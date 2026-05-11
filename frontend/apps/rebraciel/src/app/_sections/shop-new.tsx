@@ -4,15 +4,19 @@ import {
     AspectRatio,
     Badge,
     BorderBeam,
+    ClipReveal,
     FadeIn,
     GradientText,
     InteractiveHoverButton,
     MagicCard,
     StaggerReveal,
+    TextScramble,
+    TiltCard,
     getNewArrivals,
 } from "@grafiesto/ui"
 import { motion } from "framer-motion"
 import { ArrowRight, Sparkles } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 
 export function ShopNewSection() {
@@ -63,51 +67,72 @@ export function ShopNewSection() {
           </FadeIn>
         </div>
 
-        {/* Product grid */}
+        {/* Product grid with TiltCards and ClipReveal */}
         <StaggerReveal stagger={0.1} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {newProducts.slice(0, 6).map((p, i) => (
             <Link key={p.id} href={`/product/${p.handle}`} className="group">
-              <MagicCard
-                gradientColor="hsl(var(--primary))"
-                gradientOpacity={0.1}
-                className="rounded-xl border-foreground/[0.04] bg-card p-0 overflow-hidden"
+              <TiltCard
+                tiltAmount={5}
+                glareOpacity={0.06}
+                glareColor="hsl(var(--primary))"
+                borderRadius={16}
+                className="h-full"
+                innerClassName="h-full"
               >
-                <div className="relative">
-                  <AspectRatio ratio={3 / 4} className="overflow-hidden bg-muted/30">
-                    <motion.img
-                      src={p.images[0]?.url}
-                      alt={p.title}
-                      className="w-full h-full object-cover"
-                      whileHover={{ scale: 1.08 }}
-                      transition={{ duration: 0.5 }}
+                <MagicCard
+                  gradientColor="hsl(var(--primary))"
+                  gradientOpacity={0.1}
+                  className="rounded-xl border-foreground/[0.04] bg-card p-0 overflow-hidden h-full"
+                >
+                  <div className="relative">
+                    <AspectRatio ratio={3 / 4} className="overflow-hidden bg-muted/30">
+                      <ClipReveal
+                        direction={i % 2 === 0 ? "up" : "down"}
+                        duration={1}
+                        delay={0.08 * i}
+                        className="absolute inset-0"
+                      >
+                        <Image
+                          src={p.images[0]?.url}
+                          alt={p.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </ClipReveal>
+                    </AspectRatio>
+
+                    {p.new && (
+                      <Badge className="absolute top-2 left-2 bg-primary text-white border-0 rounded-full text-[9px] font-semibold px-2 py-0.5">
+                        New
+                      </Badge>
+                    )}
+
+                    <BorderBeam
+                      size={80}
+                      duration={10}
+                      colorFrom="hsl(var(--primary))"
+                      colorTo="hsl(var(--accent))"
+                      delay={i * 0.2}
                     />
-                  </AspectRatio>
+                  </div>
 
-                  {p.new && (
-                    <Badge className="absolute top-2 left-2 bg-primary text-white border-0 rounded-full text-[9px] font-semibold px-2 py-0.5">
-                      New
-                    </Badge>
-                  )}
-
-                  <BorderBeam
-                    size={80}
-                    duration={10}
-                    colorFrom="hsl(var(--primary))"
-                    colorTo="hsl(var(--accent))"
-                    delay={i * 0.2}
-                  />
-                </div>
-
-                <div className="p-3">
-                  <h3 className="font-medium text-xs tracking-wide truncate group-hover:text-primary transition-colors">
-                    {p.title}
-                  </h3>
-                  <p className="text-[10px] text-muted-foreground mt-0.5 truncate">{p.subtitle}</p>
-                  <p className="font-semibold text-xs text-primary mt-2">
-                    ₹{p.variants[0].price / 100}
-                  </p>
-                </div>
-              </MagicCard>
+                  <div className="p-3">
+                    <h3 className="font-medium text-xs tracking-wide truncate group-hover:text-primary transition-colors">
+                      <TextScramble
+                        text={p.title}
+                        scrambleOnHover
+                        trigger="hover"
+                        duration={500}
+                        className="font-sans tracking-wide"
+                      />
+                    </h3>
+                    <p className="text-[10px] text-muted-foreground mt-0.5 truncate">{p.subtitle}</p>
+                    <p className="font-semibold text-xs text-primary mt-2">
+                      ₹{p.variants[0].price / 100}
+                    </p>
+                  </div>
+                </MagicCard>
+              </TiltCard>
             </Link>
           ))}
         </StaggerReveal>

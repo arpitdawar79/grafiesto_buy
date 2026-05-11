@@ -6,8 +6,10 @@ import {
     FadeIn,
     GlowCard,
     GradientText,
+    ConvergeReveal,
     MagicCard,
     SAMPLE_REVIEWS,
+    TextScramble,
 } from "@grafiesto/ui"
 import { motion } from "framer-motion"
 import { BadgeCheck, MessageCircle, Quote, Star, Users } from "lucide-react"
@@ -70,10 +72,15 @@ export function SocialProofSection() {
         </div>
 
         <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-16 items-start">
-          {/* Testimonials with enhanced GlowCards */}
+          {/* Testimonials with enhanced GlowCards and converge effects */}
           <div className="space-y-5">
             {reviews.map((r, i) => (
-              <FadeIn key={r.id} delay={i * 0.12}>
+              <ConvergeReveal
+                key={r.id}
+                origin={i % 2 === 0 ? "left" : "right"}
+                delay={i * 0.15}
+                duration={0.9}
+              >
                 <GlowCard
                   glowColor={i === 0 ? "hsl(var(--primary) / 0.2)" : "hsl(var(--primary) / 0.12)"}
                   spread={i === 0 ? 60 : 40}
@@ -120,7 +127,7 @@ export function SocialProofSection() {
                     </div>
                   </div>
                 </GlowCard>
-              </FadeIn>
+              </ConvergeReveal>
             ))}
           </div>
 
@@ -222,7 +229,7 @@ export function SocialProofSection() {
               </MagicCard>
             </FadeIn>
 
-            {/* Trust indicators */}
+            {/* Trust indicators with scramble text */}
             <FadeIn delay={0.3} className="mt-6 flex flex-wrap gap-4">
               {[
                 { label: "25K+ Happy Customers", icon: Users },
@@ -236,7 +243,13 @@ export function SocialProofSection() {
                   transition={{ duration: 0.2 }}
                 >
                   <stat.icon className="w-3.5 h-3.5 text-primary" />
-                  <span className="font-medium">{stat.label}</span>
+                  <TextScramble
+                    text={stat.label}
+                    scrambleOnHover
+                    trigger="hover"
+                    duration={500}
+                    className="font-sans tracking-wide"
+                  />
                 </motion.div>
               ))}
             </FadeIn>

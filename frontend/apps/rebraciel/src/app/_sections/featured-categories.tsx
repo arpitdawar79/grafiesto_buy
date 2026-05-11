@@ -1,6 +1,14 @@
 "use client"
 
-import { BlurIn, BorderBeam, FadeIn, GradientText, InteractiveHoverButton } from "@grafiesto/ui"
+import {
+  BlurIn,
+  BorderBeam,
+  ClipReveal,
+  FadeIn,
+  GradientText,
+  InteractiveHoverButton,
+  TiltCard,
+} from "@grafiesto/ui"
 import { motion } from "framer-motion"
 import { Droplets, Gem, Heart, Palette, Sparkles, Sun, Wind } from "lucide-react"
 import Image from "next/image"
@@ -119,7 +127,7 @@ export function FeaturedCategoriesSection() {
           </FadeIn>
         </div>
 
-        {/* Bento Grid */}
+        {/* Bento Grid with 3D Tilt Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 auto-rows-[200px] lg:auto-rows-[280px]">
           {categories.map((category, i) => (
             <FadeIn
@@ -127,17 +135,21 @@ export function FeaturedCategoriesSection() {
               delay={i * 0.1}
               className={category.featured ? "col-span-2 row-span-2" : ""}
             >
-              <motion.div
-                className="group relative h-full rounded-2xl overflow-hidden cursor-pointer"
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.3 }}
+              <TiltCard
+                tiltAmount={category.featured ? 6 : 8}
+                glareOpacity={0.08}
+                glareColor={category.color.includes("rose") ? "#f43f5e" : category.color.includes("purple") ? "#a855f7" : category.color.includes("amber") ? "#f59e0b" : category.color.includes("teal") ? "#14b8a6" : category.color.includes("emerald") ? "#10b981" : "#eab308"}
+                borderRadius={20}
+                className="h-full"
+                innerClassName="h-full"
               >
                 <Link href={category.href} className="relative block h-full">
-                  {/* Background Image */}
-                  <motion.div
+                  {/* Background Image with Clip Reveal */}
+                  <ClipReveal
+                    direction={i % 2 === 0 ? "up" : "left"}
+                    duration={1.2}
+                    delay={0.1 * i}
                     className="absolute inset-0"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                   >
                     <Image
                       src={category.image}
@@ -145,7 +157,7 @@ export function FeaturedCategoriesSection() {
                       fill
                       className="object-cover"
                     />
-                  </motion.div>
+                  </ClipReveal>
 
                   {/* Gradient Overlay */}
                   <div
@@ -154,7 +166,7 @@ export function FeaturedCategoriesSection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
 
                   {/* Content */}
-                  <div className="absolute inset-0 p-6 lg:p-8 flex flex-col justify-end">
+                  <div className="absolute inset-0 p-6 lg:p-8 flex flex-col justify-end z-10">
                     <motion.div
                       className={`w-12 h-12 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center mb-4 shadow-lg`}
                       whileHover={{ scale: 1.1, rotate: 5 }}
@@ -189,11 +201,11 @@ export function FeaturedCategoriesSection() {
                   )}
 
                   {/* Hover Glow */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0">
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent" />
                   </div>
                 </Link>
-              </motion.div>
+              </TiltCard>
             </FadeIn>
           ))}
         </div>

@@ -5,10 +5,13 @@ import {
     FadeIn,
     GradientText,
     NumberTicker,
+    CircularText,
+    ConvergeReveal,
+    KineticText,
     PulsatingButton,
     ShineBorder,
     SpotlightCard,
-    WordRotate
+    WordRotate,
 } from "@grafiesto/ui"
 import { motion } from "framer-motion"
 import { Droplets, Flame, Heart, Leaf, Sparkles } from "lucide-react"
@@ -73,8 +76,19 @@ export function StorySection() {
         />
       </div>
 
+      {/* Decorative circular text — top right */}
+      <div className="absolute top-20 right-10 opacity-[0.06] hidden lg:block">
+        <CircularText
+          text="HERITAGE • CRAFTSMANSHIP • QUALITY • "
+          radius={70}
+          className="text-[8px] tracking-[0.4em] font-medium"
+          textClassName="text-foreground"
+          duration={20}
+        />
+      </div>
+
       <div className="container relative z-10">
-        {/* Header with WordRotate effect */}
+        {/* Header with WordRotate effect and Kinetic Text */}
         <div className="text-center mb-20">
           <FadeIn>
             <motion.div
@@ -91,22 +105,24 @@ export function StorySection() {
             </motion.div>
           </FadeIn>
           <BlurIn delay={0.15}>
-            <h2 className="font-serif text-4xl lg:text-6xl font-normal tracking-tight leading-[0.95] mt-2 max-w-3xl mx-auto">
-              Crafted with{" "}
-              <GradientText
-                as="span"
-                className="font-serif italic"
-                gradient="linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 50%, hsl(var(--brand)) 100%)"
-              >
-                <WordRotate
-                  words={["Intention", "Passion", "Purpose", "Vision"]}
-                  duration={3000}
-                  className="min-w-[140px] md:min-w-[180px]"
-                />
-              </GradientText>
-              <br className="hidden sm:block" />
-              <span className="text-muted-foreground">, Worn with Confidence</span>
-            </h2>
+            <KineticText intensity={8} className="inline-block">
+              <h2 className="font-serif text-4xl lg:text-6xl font-normal tracking-tight leading-[0.95] mt-2 max-w-3xl mx-auto">
+                Crafted with{" "}
+                <GradientText
+                  as="span"
+                  className="font-serif italic"
+                  gradient="linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 50%, hsl(var(--brand)) 100%)"
+                >
+                  <WordRotate
+                    words={["Intention", "Passion", "Purpose", "Vision"]}
+                    duration={3000}
+                    className="min-w-[140px] md:min-w-[180px]"
+                  />
+                </GradientText>
+                <br className="hidden sm:block" />
+                <span className="text-muted-foreground">, Worn with Confidence</span>
+              </h2>
+            </KineticText>
           </BlurIn>
           <FadeIn delay={0.3}>
             <p className="text-muted-foreground mt-6 text-base max-w-md mx-auto leading-relaxed">
@@ -115,10 +131,15 @@ export function StorySection() {
           </FadeIn>
         </div>
 
-        {/* Values grid with enhanced SpotlightCards */}
+        {/* Values grid with enhanced SpotlightCards and ConvergeReveal */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mb-24">
           {values.map((item, i) => (
-            <FadeIn key={item.title} delay={i * 0.1}>
+            <ConvergeReveal
+              key={item.title}
+              origin={i % 2 === 0 ? "left" : "right"}
+              delay={i * 0.12}
+              duration={0.9}
+            >
               <SpotlightCard
                 spotlightColor={`${item.color}14`}
                 className="h-full rounded-2xl border-foreground/[0.04] p-7 bg-gradient-to-b from-card to-muted/30 group hover:border-primary/10 transition-colors duration-300"
@@ -139,11 +160,11 @@ export function StorySection() {
                 </h3>
                 <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{item.desc}</p>
               </SpotlightCard>
-            </FadeIn>
+            </ConvergeReveal>
           ))}
         </div>
 
-        {/* Stats bar with enhanced ShineBorder */}
+        {/* Stats bar with enhanced ShineBorder and ConvergeReveal */}
         <FadeIn delay={0.3}>
           <ShineBorder
             borderRadius={24}
@@ -154,21 +175,22 @@ export function StorySection() {
           >
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 py-10 px-8 lg:px-12">
               {stats.map((s, i) => (
-                <motion.div
+                <ConvergeReveal
                   key={s.label}
-                  className="text-center"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + i * 0.1, duration: 0.5 }}
+                  origin="bottom"
+                  delay={0.3 + i * 0.1}
+                  duration={0.8}
                 >
-                  <span className="text-3xl lg:text-5xl font-bold tracking-tight text-foreground">
-                    <NumberTicker value={s.value} delay={0.3 + i * 0.15} />
-                    <span className="text-primary">{s.suffix}</span>
-                  </span>
-                  <p className="text-[9px] uppercase tracking-[0.25em] text-muted-foreground mt-3 font-medium">
-                    {s.label}
-                  </p>
-                </motion.div>
+                  <div className="text-center">
+                    <span className="text-3xl lg:text-5xl font-bold tracking-tight text-foreground">
+                      <NumberTicker value={s.value} delay={0.3 + i * 0.15} />
+                      <span className="text-primary">{s.suffix}</span>
+                    </span>
+                    <p className="text-[9px] uppercase tracking-[0.25em] text-muted-foreground mt-3 font-medium">
+                      {s.label}
+                    </p>
+                  </div>
+                </ConvergeReveal>
               ))}
             </div>
           </ShineBorder>

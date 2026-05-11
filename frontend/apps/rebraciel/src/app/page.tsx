@@ -11,6 +11,7 @@ import { NewsletterSection } from "./_sections/newsletter"
 import { ShopNewSection } from "./_sections/shop-new"
 import { SocialProofSection } from "./_sections/social-proof"
 import { StorySection } from "./_sections/story"
+import { FilmGrain } from "@grafiesto/ui"
 
 export default function HomePage() {
   return (
@@ -18,6 +19,9 @@ export default function HomePage() {
       <SmoothScroll />
       <ScrollProgress color="linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--brand)))" />
       <CursorGlow size={500} color="hsl(var(--primary) / 0.05)" blur={100} />
+
+      {/* Premium film grain overlay for luxury texture */}
+      <FilmGrain opacity={0.025} />
 
       {/* 1. Hero - First impression with dramatic effects */}
       <HeroSection />

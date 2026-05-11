@@ -6,16 +6,20 @@ import {
     BlurIn,
     BorderBeam,
     Button,
+    ClipReveal,
     FadeIn,
     GradientText,
     InteractiveHoverButton,
     MagicCard,
     SpotlightCard,
     StaggerReveal,
+    TextScramble,
+    TiltCard,
     getBestSellers,
 } from "@grafiesto/ui"
 import { motion } from "framer-motion"
 import { ArrowRight, Crown, Heart, Sparkles } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 
 export function BestsellersSection() {
@@ -80,77 +84,99 @@ export function BestsellersSection() {
           </FadeIn>
         </div>
 
-        {/* Product grid with MagicCards and BorderBeams */}
+        {/* Product grid with TiltCards and ClipReveal images */}
         <StaggerReveal stagger={0.12} className="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-7">
           {bestSellers.slice(0, 4).map((p, i) => (
             <Link key={p.id} href={`/product/${p.handle}`} className="group">
-              <MagicCard
-                gradientColor="hsl(var(--primary))"
-                gradientOpacity={0.1}
-                className="rounded-2xl lg:rounded-3xl border-foreground/[0.04] bg-gradient-to-b from-card to-card/80 p-0 overflow-hidden"
+              <TiltCard
+                tiltAmount={6}
+                glareOpacity={0.1}
+                glareColor="hsl(var(--primary))"
+                borderRadius={20}
+                className="h-full"
+                innerClassName="h-full"
               >
-                <div className="relative">
-                  <AspectRatio ratio={3 / 4} className="overflow-hidden bg-muted/30">
-                    <motion.img
-                      src={p.images[0]?.url}
-                      alt={p.title}
-                      className="w-full h-full object-cover"
-                      whileHover={{ scale: 1.08 }}
-                      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                <MagicCard
+                  gradientColor="hsl(var(--primary))"
+                  gradientOpacity={0.1}
+                  className="rounded-2xl lg:rounded-3xl border-foreground/[0.04] bg-gradient-to-b from-card to-card/80 p-0 overflow-hidden h-full"
+                >
+                  <div className="relative">
+                    <AspectRatio ratio={3 / 4} className="overflow-hidden bg-muted/30">
+                      {/* Clip reveal image */}
+                      <ClipReveal
+                        direction={i % 2 === 0 ? "up" : "down"}
+                        duration={1.2}
+                        delay={0.15 * i}
+                        className="absolute inset-0"
+                      >
+                        <Image
+                          src={p.images[0]?.url}
+                          alt={p.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </ClipReveal>
+                      {/* Premium overlay with enhanced gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-foreground/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                    </AspectRatio>
+
+                    {/* Quick Add overlay */}
+                    <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                      <Button
+                        size="sm"
+                        className="w-full rounded-full bg-white/95 text-foreground hover:bg-white shadow-2xl text-xs font-semibold backdrop-blur-sm"
+                      >
+                        <Heart className="w-3.5 h-3.5 mr-1.5" />
+                        Add to Collection
+                      </Button>
+                    </div>
+
+                    {/* Bestseller badge */}
+                    {i === 0 && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5 + i * 0.1 }}
+                      >
+                        <Badge className="absolute top-3 left-3 bg-gradient-to-r from-primary to-accent text-white border-0 rounded-full text-[9px] font-semibold shadow-lg px-3 py-1">
+                          <Sparkles className="w-3 h-3 mr-1" />
+                          #1 Bestseller
+                        </Badge>
+                      </motion.div>
+                    )}
+
+                    {/* Border beam on all cards with alternating colors */}
+                    <BorderBeam
+                      size={120 + i * 10}
+                      duration={12 + i * 2}
+                      colorFrom={i % 2 === 0 ? "hsl(var(--primary))" : "hsl(var(--accent))"}
+                      colorTo={i % 2 === 0 ? "hsl(var(--accent))" : "hsl(var(--brand))"}
+                      delay={i * 0.5}
                     />
-                    {/* Premium overlay with enhanced gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-foreground/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
-                  </AspectRatio>
-
-                  {/* Quick Add overlay */}
-                  <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-                    <Button
-                      size="sm"
-                      className="w-full rounded-full bg-white/95 text-foreground hover:bg-white shadow-2xl text-xs font-semibold backdrop-blur-sm"
-                    >
-                      <Heart className="w-3.5 h-3.5 mr-1.5" />
-                      Add to Collection
-                    </Button>
                   </div>
 
-                  {/* Bestseller badge */}
-                  {i === 0 && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 + i * 0.1 }}
-                    >
-                      <Badge className="absolute top-3 left-3 bg-gradient-to-r from-primary to-accent text-white border-0 rounded-full text-[9px] font-semibold shadow-lg px-3 py-1">
-                        <Sparkles className="w-3 h-3 mr-1" />
-                        #1 Bestseller
-                      </Badge>
-                    </motion.div>
-                  )}
-
-                  {/* Border beam on all cards with alternating colors */}
-                  <BorderBeam
-                    size={120 + i * 10}
-                    duration={12 + i * 2}
-                    colorFrom={i % 2 === 0 ? "hsl(var(--primary))" : "hsl(var(--accent))"}
-                    colorTo={i % 2 === 0 ? "hsl(var(--accent))" : "hsl(var(--brand))"}
-                    delay={i * 0.5}
-                  />
-                </div>
-
-                {/* Product info with SpotlightCard effect */}
-                <SpotlightCard spotlightColor="hsl(var(--primary) / 0.05)" className="p-4 lg:p-5">
-                  <h3 className="font-medium text-sm tracking-wide group-hover:text-primary transition-colors duration-300">
-                    {p.title}
-                  </h3>
-                  <p className="text-[11px] text-muted-foreground mt-1">{p.subtitle}</p>
-                  <div className="flex items-center justify-between mt-3 pt-3 border-t border-foreground/[0.04]">
-                    <p className="font-bold text-sm text-primary">₹{p.variants[0].price / 100}</p>
-                    <span className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-medium">
-                      Eau de Parfum
-                    </span>
-                  </div>
-                </SpotlightCard>
-              </MagicCard>
+                  {/* Product info with SpotlightCard effect and scramble text */}
+                  <SpotlightCard spotlightColor="hsl(var(--primary) / 0.05)" className="p-4 lg:p-5">
+                    <h3 className="font-medium text-sm tracking-wide group-hover:text-primary transition-colors duration-300">
+                      <TextScramble
+                        text={p.title}
+                        scrambleOnHover
+                        trigger="hover"
+                        duration={600}
+                        className="font-sans tracking-wide"
+                      />
+                    </h3>
+                    <p className="text-[11px] text-muted-foreground mt-1">{p.subtitle}</p>
+                    <div className="flex items-center justify-between mt-3 pt-3 border-t border-foreground/[0.04]">
+                      <p className="font-bold text-sm text-primary">₹{p.variants[0].price / 100}</p>
+                      <span className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-medium">
+                        Eau de Parfum
+                      </span>
+                    </div>
+                  </SpotlightCard>
+                </MagicCard>
+              </TiltCard>
             </Link>
           ))}
         </StaggerReveal>

@@ -454,6 +454,146 @@ h4 {
   width: 100%;
 }
 
+/* ============================================
+   REACTBITS-INSPIRED PREMIUM EFFECTS
+   ============================================ */
+
+/* Text decode / scramble cursor */
+@keyframes decode-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.decode-cursor::after {
+  content: "|";
+  animation: decode-cursor 1s step-end infinite;
+  margin-left: 2px;
+  color: hsl(var(--primary));
+}
+
+/* Cinematic letter-spacing breathe */
+@keyframes letter-breathe {
+  0%, 100% { letter-spacing: 0.05em; }
+  50% { letter-spacing: 0.15em; }
+}
+
+.letter-breathe {
+  animation: letter-breathe 4s ease-in-out infinite;
+}
+
+/* Premium float with depth */
+@keyframes float-depth {
+  0%, 100% {
+    transform: translateY(0) translateZ(0) scale(1);
+    filter: blur(0px);
+  }
+  33% {
+    transform: translateY(-12px) translateZ(20px) scale(1.02);
+    filter: blur(0.5px);
+  }
+  66% {
+    transform: translateY(-6px) translateZ(10px) scale(0.98);
+    filter: blur(0px);
+  }
+}
+
+.float-depth {
+  animation: float-depth 6s ease-in-out infinite;
+}
+
+/* Clip reveal mask animation */
+@keyframes clip-reveal-up {
+  from { clip-path: inset(100% 0% 0% 0%); }
+  to { clip-path: inset(0% 0% 0% 0%); }
+}
+
+@keyframes clip-reveal-circle {
+  from { clip-path: circle(0% at 50% 50%); }
+  to { clip-path: circle(100% at 50% 50%); }
+}
+
+.clip-reveal-up {
+  animation: clip-reveal-up 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.clip-reveal-circle {
+  animation: clip-reveal-circle 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Film grain texture overlay (static fallback) */
+.film-grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* Converging elements */
+@keyframes converge-left {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0px);
+  }
+}
+
+@keyframes converge-right {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0px);
+  }
+}
+
+/* Premium 3D perspective container */
+.perspective-container {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* Smooth scroll snap for sections */
+.snap-section {
+  scroll-snap-align: start;
+}
+
+/* Premium text shadow for luxury feel */
+.text-shadow-luxury {
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.15), 0 4px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Magnetic button base */
+.magnetic-btn {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Circular text rotation */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin-slow {
+  animation: spin-slow 30s linear infinite;
+}
+
+.spin-slow-reverse {
+  animation: spin-slow 25s linear infinite reverse;
+}
+
 /* Custom scrollbar for premium feel */
 ::-webkit-scrollbar {
   width: 8px;

@@ -14,8 +14,13 @@ import {
   ParticleField,
   RainbowButton,
   Ripple,
+  CircularText,
+  ClipReveal,
+  ConvergeReveal,
   SpotlightCard,
+  TextScramble,
   TextShimmer,
+  TiltCard,
 } from "@grafiesto/ui"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { ArrowRight, Globe, Play, Sparkles, Star, Truck } from "lucide-react"
@@ -30,89 +35,102 @@ export function HeroSection() {
     offset: ["start start", "end start"],
   })
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, 150])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const y = useTransform(scrollYProgress, [0, 1], [0, 200])
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.92])
 
   return (
     <section ref={containerRef} className="relative min-h-[100svh] overflow-hidden">
       {/* Layer 1: Backlight cursor-following glow */}
-      <Backlight color="hsl(var(--primary))" size={600} blur={150} className="opacity-[0.06]" />
+      <Backlight color="hsl(var(--primary))" size={700} blur={180} className="opacity-[0.05]" />
 
-      {/* Layer 2: Aurora ambient background with enhanced animation */}
-      <AuroraBackground className="absolute inset-0 opacity-70" />
+      {/* Layer 2: Aurora ambient background */}
+      <AuroraBackground className="absolute inset-0 opacity-60" />
 
       {/* Layer 3: Particle field for magical atmosphere */}
       <ParticleField
-        count={30}
+        count={40}
         color="hsl(var(--primary))"
-        minSize={2}
-        maxSize={6}
+        minSize={1.5}
+        maxSize={5}
         speed="slow"
-        className="opacity-60 z-[1]"
+        className="opacity-50 z-[1]"
       />
 
       {/* Layer 4: Ripple rings behind content */}
-      <Ripple color="hsl(var(--primary) / 0.04)" count={6} className="z-0" />
+      <Ripple color="hsl(var(--primary) / 0.03)" count={5} className="z-0" />
 
       {/* Layer 5: Meteor shower effect */}
-      <Meteors count={8} className="z-[2] opacity-40" />
+      <Meteors count={10} className="z-[2] opacity-30" />
 
       {/* Layer 6: Decorative gradient orbs with complex animation */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Primary gradient orb - top right */}
         <motion.div
-          className="absolute top-[5%] right-[0%] w-[700px] h-[700px] rounded-full bg-gradient-to-br from-rose-400/[0.08] via-primary/[0.06] to-accent/[0.04] blur-[120px]"
+          className="absolute top-[5%] right-[0%] w-[800px] h-[800px] rounded-full bg-gradient-to-br from-rose-400/[0.08] via-primary/[0.06] to-accent/[0.04] blur-[140px]"
           animate={{
-            x: [0, 40, 0, -20, 0],
-            y: [0, -30, 20, -10, 0],
+            x: [0, 50, 0, -30, 0],
+            y: [0, -40, 30, -20, 0],
             scale: [1, 1.15, 0.95, 1.1, 1],
           }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
         />
-        {/* Secondary gradient orb - bottom left */}
         <motion.div
-          className="absolute bottom-[10%] left-[-5%] w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-accent/[0.08] via-brand/[0.05] to-rose-300/[0.04] blur-[100px]"
+          className="absolute bottom-[10%] left-[-5%] w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-accent/[0.08] via-brand/[0.05] to-rose-300/[0.04] blur-[120px]"
           animate={{
-            x: [0, -30, 0, 20, 0],
-            y: [0, 40, -20, 30, 0],
+            x: [0, -40, 0, 30, 0],
+            y: [0, 50, -30, 40, 0],
             scale: [1, 0.95, 1.1, 0.9, 1],
           }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 5,
-          }}
+          transition={{ duration: 30, repeat: Infinity, ease: "easeInOut", delay: 5 }}
         />
-        {/* Accent orb - center floating */}
         <motion.div
-          className="absolute top-[40%] left-[30%] w-[400px] h-[400px] rounded-full bg-gradient-to-r from-primary/[0.05] via-rose-300/[0.03] to-transparent blur-[90px]"
+          className="absolute top-[40%] left-[25%] w-[500px] h-[500px] rounded-full bg-gradient-to-r from-primary/[0.05] via-rose-300/[0.03] to-transparent blur-[100px]"
           animate={{
-            x: [0, 60, 0, -40, 0],
-            y: [0, -40, 60, -20, 0],
+            x: [0, 70, 0, -50, 0],
+            y: [0, -50, 70, -30, 0],
             scale: [1, 1.2, 0.9, 1.15, 1],
-            opacity: [0.5, 0.8, 0.4, 0.7, 0.5],
+            opacity: [0.4, 0.7, 0.3, 0.6, 0.4],
           }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         />
       </div>
 
+      {/* Rotating Circular Text — left side */}
+      <motion.div
+        className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-10 opacity-[0.08] hidden xl:block"
+        style={{ y, opacity }}
+      >
+        <CircularText
+          text="PREMIUM BEAUTY • LUXURY COSMETICS • CLEAN FORMULAS • "
+          radius={90}
+          className="text-[9px] tracking-[0.3em] font-medium"
+          textClassName="text-foreground"
+          duration={30}
+        />
+      </motion.div>
+
+      {/* Rotating Circular Text — right side */}
+      <motion.div
+        className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-10 opacity-[0.08] hidden xl:block"
+        style={{ y, opacity }}
+      >
+        <CircularText
+          text="REBRACIEL • SINCE 2024 • INDIA • WORLDWIDE • "
+          radius={80}
+          className="text-[9px] tracking-[0.3em] font-medium"
+          textClassName="text-foreground"
+          duration={25}
+          reverse
+        />
+      </motion.div>
+
       {/* Main Content Container */}
-      <motion.div style={{ y, opacity }} className="relative z-10">
-        <div className="container min-h-[100svh] flex flex-col lg:flex-row items-center justify-center py-20 lg:py-0 gap-12 lg:gap-20">
+      <motion.div style={{ y, opacity, scale }} className="relative z-10">
+        <div className="container min-h-[100svh] flex flex-col lg:flex-row items-center justify-center py-20 lg:py-0 gap-12 lg:gap-16">
           {/* Left Content */}
           <div className="flex-1 max-w-2xl text-center lg:text-left order-2 lg:order-1 flex flex-col">
-            {/* Global Badge */}
-            <BlurIn delay={0.1}>
+            {/* Global Badge — converges from left */}
+            <ConvergeReveal origin="left" delay={0.2} duration={0.8}>
               <motion.div
                 className="inline-flex items-center gap-2.5 rounded-full bg-foreground/[0.03] backdrop-blur-sm border border-foreground/[0.08] px-5 py-2.5 mb-8"
                 whileHover={{ scale: 1.02, borderColor: "hsl(var(--primary) / 0.2)" }}
@@ -123,10 +141,10 @@ export function HeroSection() {
                   Worldwide Shipping Available
                 </TextShimmer>
               </motion.div>
-            </BlurIn>
+            </ConvergeReveal>
 
             {/* Luxury pill badge with shimmer */}
-            <BlurIn delay={0.2}>
+            <ConvergeReveal origin="left" delay={0.4} duration={0.8}>
               <motion.div
                 className="inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-primary/[0.1] to-accent/[0.08] backdrop-blur-sm border border-primary/20 px-5 py-2.5 mb-6"
                 whileHover={{ scale: 1.02 }}
@@ -137,10 +155,10 @@ export function HeroSection() {
                   Premium Cosmetics & Skincare
                 </TextShimmer>
               </motion.div>
-            </BlurIn>
+            </ConvergeReveal>
 
-            {/* Grand headline with enhanced gradient */}
-            <BlurIn delay={0.4}>
+            {/* Grand headline with enhanced gradient and kinetic feel */}
+            <BlurIn delay={0.5}>
               <h1 className="font-serif text-[clamp(2.5rem,6vw,5.5rem)] font-normal leading-[0.9] tracking-tight text-foreground">
                 Beauty That
                 <br />
@@ -159,8 +177,8 @@ export function HeroSection() {
               </h1>
             </BlurIn>
 
-            {/* Subheadline with elegant typography */}
-            <FadeIn delay={0.7}>
+            {/* Subheadline with text scramble effect */}
+            <FadeIn delay={0.8}>
               <p className="text-lg md:text-xl text-muted-foreground max-w-lg mt-8 font-light leading-relaxed tracking-wide">
                 Discover our curated collection of luxury cosmetics, skincare essentials, and beauty
                 rituals from around the world.
@@ -168,9 +186,23 @@ export function HeroSection() {
               </p>
             </FadeIn>
 
+            {/* Text scramble decorative line */}
+            <FadeIn delay={1.0}>
+              <div className="mt-6 flex items-center gap-3 justify-center lg:justify-start">
+                <div className="h-px w-12 bg-gradient-to-r from-primary/40 to-transparent" />
+                <TextScramble
+                  text="MAKE EVERY DAY LUXURY"
+                  className="text-[10px] tracking-[0.35em] text-primary/60 font-medium uppercase"
+                  trigger="mount"
+                  delay={1200}
+                />
+                <div className="h-px w-12 bg-gradient-to-l from-primary/40 to-transparent hidden sm:block" />
+              </div>
+            </FadeIn>
+
             {/* CTA row with Rainbow Button and Interactive Hover */}
             <FadeIn
-              delay={0.9}
+              delay={1.1}
               className="flex flex-wrap justify-center lg:justify-start gap-4 mt-10"
             >
               <Magnetic strength={0.08}>
@@ -191,7 +223,7 @@ export function HeroSection() {
             </FadeIn>
 
             {/* Trust bar with animated stats */}
-            <FadeIn delay={1.1}>
+            <FadeIn delay={1.3}>
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 mt-12 pt-8 border-t border-foreground/[0.06]">
                 <div className="flex items-center gap-2">
                   <div className="flex">
@@ -200,7 +232,7 @@ export function HeroSection() {
                         key={i}
                         initial={{ opacity: 0, scale: 0 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 1.2 + i * 0.1, duration: 0.3 }}
+                        transition={{ delay: 1.4 + i * 0.1, duration: 0.3 }}
                       >
                         <Star className="w-3.5 h-3.5 fill-primary text-primary" />
                       </motion.div>
@@ -223,23 +255,34 @@ export function HeroSection() {
             </FadeIn>
           </div>
 
-          {/* Right Content - Featured Product Cards */}
-          <div className="flex-1 max-w-lg order-1 lg:order-2">
-            <FadeIn delay={0.5} direction="left">
-              <div className="relative">
-                {/* Main Product Image */}
+          {/* Right Content — Converging Product Cards with Tilt */}
+          <ConvergeReveal origin="right" delay={0.3} duration={1.2} className="flex-1 max-w-lg order-1 lg:order-2">
+            <div className="relative perspective-container">
+              {/* Main Product Image with Clip Reveal */}
+              <TiltCard
+                tiltAmount={8}
+                glareOpacity={0.12}
+                glareColor="hsl(var(--primary))"
+                borderRadius={28}
+              >
                 <motion.div
-                  className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl shadow-primary/10"
-                  whileHover={{ scale: 1.02 }}
+                  className="relative aspect-[4/5] rounded-[28px] overflow-hidden shadow-2xl shadow-primary/10"
+                  whileHover={{ scale: 1.01 }}
                   transition={{ duration: 0.4 }}
                 >
-                  <Image
-                    src="https://images.pexels.com/photos/4041391/pexels-photo-4041391.jpeg?auto=compress&cs=tinysrgb&w=800"
-                    alt="Premium Cosmetics Collection"
-                    fill
-                    className="object-cover"
-                    priority
-                  />
+                  <ClipReveal
+                    direction="circle"
+                    duration={1.6}
+                    delay={0.5}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src="https://images.pexels.com/photos/4041391/pexels-photo-4041391.jpeg?auto=compress&cs=tinysrgb&w=800"
+                      alt="Premium Cosmetics Collection"
+                      fill
+                      className="object-cover"
+                    />
+                  </ClipReveal>
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-foreground/5 to-transparent" />
 
@@ -248,62 +291,82 @@ export function HeroSection() {
                     className="absolute top-6 right-6 bg-white/95 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.2 }}
+                    transition={{ delay: 1.4 }}
                   >
                     <span className="text-xs font-semibold text-foreground">New Arrival</span>
                   </motion.div>
                 </motion.div>
+              </TiltCard>
 
-                {/* Secondary floating card */}
-                <motion.div
-                  className="absolute -bottom-8 -left-8 w-48 z-10"
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.8, duration: 0.6 }}
+              {/* Secondary floating card — converges from bottom-left */}
+              <motion.div
+                className="absolute -bottom-8 -left-8 w-52 z-10"
+                initial={{ opacity: 0, x: -60, y: 40 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ delay: 0.9, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <SpotlightCard
+                  spotlightColor="hsl(var(--primary) / 0.1)"
+                  className="rounded-2xl bg-white/90 backdrop-blur-xl border border-foreground/[0.06] p-4 shadow-xl"
                 >
-                  <SpotlightCard
-                    spotlightColor="hsl(var(--primary) / 0.1)"
-                    className="rounded-2xl bg-white/90 backdrop-blur-xl border border-foreground/[0.06] p-4 shadow-xl"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-lg font-bold">
-                        #1
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold text-foreground">Best Seller</p>
-                        <p className="text-[10px] text-muted-foreground">Hydrating Serum</p>
-                      </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-lg font-bold">
+                      #1
                     </div>
-                  </SpotlightCard>
-                </motion.div>
-
-                {/* Tertiary floating card */}
-                <motion.div
-                  className="absolute -top-4 -right-4 w-44 z-10"
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1, duration: 0.6 }}
-                >
-                  <div className="rounded-2xl bg-white/95 backdrop-blur-xl border border-foreground/[0.06] p-3 shadow-xl">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="flex -space-x-2">
-                        {[1, 2, 3].map((i) => (
-                          <div
-                            key={i}
-                            className="w-7 h-7 rounded-full bg-gradient-to-br from-muted to-muted/80 border-2 border-white flex items-center justify-center text-[8px] font-bold"
-                          >
-                            {String.fromCharCode(65 + i)}
-                          </div>
-                        ))}
-                      </div>
-                      <span className="text-[10px] text-muted-foreground">+2k today</span>
+                    <div>
+                      <p className="text-xs font-semibold text-foreground">Best Seller</p>
+                      <p className="text-[10px] text-muted-foreground">Hydrating Serum</p>
                     </div>
-                    <p className="text-xs font-medium text-foreground">Join the beauty movement</p>
                   </div>
-                </motion.div>
-              </div>
-            </FadeIn>
-          </div>
+                </SpotlightCard>
+              </motion.div>
+
+              {/* Tertiary floating card — converges from top-right */}
+              <motion.div
+                className="absolute -top-4 -right-4 w-48 z-10"
+                initial={{ opacity: 0, x: 50, y: -40 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ delay: 1.1, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="rounded-2xl bg-white/95 backdrop-blur-xl border border-foreground/[0.06] p-3 shadow-xl">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="flex -space-x-2">
+                      {[1, 2, 3].map((i) => (
+                        <div
+                          key={i}
+                          className="w-7 h-7 rounded-full bg-gradient-to-br from-muted to-muted/80 border-2 border-white flex items-center justify-center text-[8px] font-bold"
+                        >
+                          {String.fromCharCode(65 + i)}
+                        </div>
+                      ))}
+                    </div>
+                    <span className="text-[10px] text-muted-foreground">+2k today</span>
+                  </div>
+                  <p className="text-xs font-medium text-foreground">Join the beauty movement</p>
+                </div>
+              </motion.div>
+
+              {/* Orbital dot decoration */}
+              <motion.div
+                className="absolute top-1/2 -left-12 w-3 h-3 rounded-full bg-primary/30"
+                animate={{
+                  y: [0, -20, 0],
+                  scale: [1, 1.3, 1],
+                  opacity: [0.3, 0.6, 0.3],
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.div
+                className="absolute bottom-1/4 -right-10 w-2 h-2 rounded-full bg-accent/40"
+                animate={{
+                  y: [0, 15, 0],
+                  scale: [1, 1.5, 1],
+                  opacity: [0.4, 0.7, 0.4],
+                }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              />
+            </div>
+          </ConvergeReveal>
         </div>
       </motion.div>
 

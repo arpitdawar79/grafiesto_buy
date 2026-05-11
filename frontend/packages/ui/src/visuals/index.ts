@@ -25,4 +25,7 @@ export * from "./pulsating-button"
 export * from "./rainbow-button"
 export * from "./shine-border"
 export * from "./word-rotate"
+export * from "./circular-text"
+export * from "./tilt-card"
+export * from "./film-grain"
 

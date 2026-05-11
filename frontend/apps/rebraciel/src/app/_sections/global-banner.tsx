@@ -1,6 +1,12 @@
 "use client"
 
-import { BlurIn, FadeIn, NumberTicker } from "@grafiesto/ui"
+import {
+  BlurIn,
+  ConvergeReveal,
+  FadeIn,
+  NumberTicker,
+  TextScramble,
+} from "@grafiesto/ui"
 import { motion } from "framer-motion"
 import { Globe2, Headphones, Package, ShieldCheck, Sparkles, Truck } from "lucide-react"
 
@@ -84,10 +90,15 @@ export function GlobalBannerSection() {
           </FadeIn>
         </div>
 
-        {/* Features Grid */}
+        {/* Features Grid with ConvergeReveal */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
           {globalFeatures.map((feature, i) => (
-            <FadeIn key={feature.title} delay={i * 0.1}>
+            <ConvergeReveal
+              key={feature.title}
+              origin={i % 2 === 0 ? "left" : "right"}
+              delay={i * 0.1}
+              duration={0.8}
+            >
               <motion.div
                 className="group relative p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-foreground/[0.04] hover:border-primary/20 transition-all duration-300"
                 whileHover={{ y: -4 }}
@@ -107,11 +118,11 @@ export function GlobalBannerSection() {
                 {/* Hover glow */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
               </motion.div>
-            </FadeIn>
+            </ConvergeReveal>
           ))}
         </div>
 
-        {/* Stats */}
+        {/* Stats with ConvergeReveal */}
         <FadeIn delay={0.4}>
           <div className="relative">
             {/* Animated Background */}
@@ -126,26 +137,32 @@ export function GlobalBannerSection() {
             {/* Stats Grid */}
             <div className="relative grid grid-cols-2 lg:grid-cols-4 gap-8 py-12 px-8 rounded-3xl bg-gradient-to-r from-primary/[0.03] via-accent/[0.03] to-brand/[0.03] border border-foreground/[0.04]">
               {stats.map((stat, i) => (
-                <motion.div
+                <ConvergeReveal
                   key={stat.label}
-                  className="text-center"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 + i * 0.1, duration: 0.5 }}
-                  viewport={{ once: true }}
+                  origin="bottom"
+                  delay={0.5 + i * 0.1}
+                  duration={0.7}
                 >
-                  <div className="flex items-baseline justify-center gap-0.5">
-                    <span className="text-4xl lg:text-5xl font-bold tracking-tight">
-                      <NumberTicker value={stat.value} />
-                    </span>
-                    <span className="text-2xl lg:text-3xl font-bold text-primary">
-                      {stat.suffix}
-                    </span>
+                  <div className="text-center">
+                    <div className="flex items-baseline justify-center gap-0.5">
+                      <span className="text-4xl lg:text-5xl font-bold tracking-tight">
+                        <NumberTicker value={stat.value} />
+                      </span>
+                      <span className="text-2xl lg:text-3xl font-bold text-primary">
+                        {stat.suffix}
+                      </span>
+                    </div>
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-2 font-medium">
+                      <TextScramble
+                        text={stat.label}
+                        scrambleOnHover
+                        trigger="hover"
+                        duration={400}
+                        className="font-sans tracking-[0.2em]"
+                      />
+                    </p>
                   </div>
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-2 font-medium">
-                    {stat.label}
-                  </p>
-                </motion.div>
+                </ConvergeReveal>
               ))}
             </div>
           </div>
